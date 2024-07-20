@@ -4,6 +4,9 @@ import notesRoutes from "./routes/notes";
 import userRoutes from "./routes/users";
 import morgan from "morgan";
 import createHttpError, { isHttpError } from "http-errors";
+import session from "express-session";
+import env from "./util/validateEnv";
+import MongoStore from "connect-mongo";
 
 const app = express();
 
@@ -12,6 +15,19 @@ app.use(morgan("dev"));
 
 // Express will now accept JSON bodies (can POST)
 app.use(express.json());
+
+app.use(session({
+    secret: env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 60 * 60 * 1000,
+    },
+    rolling: true,
+    store: MongoStore.create({
+        mongoUrl: env.MONGO_CONNECTION_STRING
+    }),
+}));
 
 // Middleware catches all requests to endpoint, then goes to notesRoutes or userRoutes
 app.use("/api/users", userRoutes);
