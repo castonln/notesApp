@@ -1,9 +1,10 @@
 import { Button, Form, Modal } from "react-bootstrap";
 import { Note } from "../models/note";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { NoteInput } from "../network/notes_api";
 import * as NotesApi from "../network/notes_api";
 import TextInputField from "./form/TextInputField";
+import RichTextEditor from "./RichTextEditor";
 
 interface AddEditNoteDialogueProps {
     noteToEdit?: Note,
@@ -11,9 +12,9 @@ interface AddEditNoteDialogueProps {
     onNoteSaved: (note: Note) => void,
 }
 
-const AddEditNoteDialogue = ({noteToEdit, onDismiss, onNoteSaved}: AddEditNoteDialogueProps) => {
+const AddEditNoteDialogue = ({ noteToEdit, onDismiss, onNoteSaved }: AddEditNoteDialogueProps) => {
 
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<NoteInput>({
+    const { register, handleSubmit, formState: { errors, isSubmitting }, control } = useForm<NoteInput>({
         defaultValues: {
             title: noteToEdit?.title || "",
             text: noteToEdit?.text || "",
@@ -35,7 +36,7 @@ const AddEditNoteDialogue = ({noteToEdit, onDismiss, onNoteSaved}: AddEditNoteDi
         }
     }
 
-    return ( 
+    return (
         <Modal show onHide={onDismiss}>
             <Modal.Header closeButton>
                 <Modal.Title>
@@ -55,27 +56,40 @@ const AddEditNoteDialogue = ({noteToEdit, onDismiss, onNoteSaved}: AddEditNoteDi
                         error={errors.title}
                     />
 
-                    <TextInputField 
+                    {/* <TextInputField
                         name="text"
                         label="Text"
                         as="textarea"
                         rows={5}
                         placeholder="Text"
                         register={register}
+                    /> */}
+
+                    <Controller
+                        control={control}
+                        name="text"
+                        render={({ field: { onChange, value } }) => (
+                            <RichTextEditor
+                                onChange={onChange}
+                                selected={value}
+                                content={value}
+                            />
+                        )}
                     />
+
                 </Form>
             </Modal.Body>
-            
+
             <Modal.Footer>
                 <Button
-                type="submit"
-                form="addEditNoteForm"
-                disabled={isSubmitting}>
+                    type="submit"
+                    form="addEditNoteForm"
+                    disabled={isSubmitting}>
                     Save
                 </Button>
             </Modal.Footer>
         </Modal>
-     );
+    );
 }
- 
+
 export default AddEditNoteDialogue;

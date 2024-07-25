@@ -1,0 +1,10 @@
+.custom {
+    border: 40px solid #000;
+    border-radius: 2px;
+    padding: 10px; /* Optional: Add some padding for better aesthetics */
+  }
+  
+  /* Customize other elements as needed */
+  .custom p {
+   margin: 1em 0;
+  }
