@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Button, Col, Row, Spinner } from "react-bootstrap";
-import { FaPlus } from "react-icons/fa";
+import { Col, Row, Spinner } from "react-bootstrap";
 import { Note as NoteModel } from '../models/note';
 import * as NotesApi from "../network/notes_api";
-import stylesUtils from "../styles/utils.module.css";
-import AddEditNoteDialogue from "./AddEditNoteDialogue";
-import Note from './Note';
 import styles from "../styles/NotesPage.module.css";
+import AddEditNoteDialogue from "./AddEditNoteDialogue";
 import AddNote from './AddNote';
+import Note from './Note';
 
 const NotesPageLoggedInView = () => {
     const [notes, setNotes] = useState<NoteModel[]>([]);
