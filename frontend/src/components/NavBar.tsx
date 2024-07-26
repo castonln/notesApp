@@ -31,7 +31,7 @@ const NavBar = ({ loggedInUser, onSignUpClicked, onLoginClicked, onLogoutSuccess
                 <Navbar.Toggle aria-controls="main-navbar" />
                 <Navbar.Collapse id="main-navbar">
                     <Nav className="ms-auto d-flex align-items-center">
-                        <Button className="d-flex align-items-center" onClick={onThemeClick}>
+                        <Button className="d-flex align-items-center me-3" onClick={onThemeClick}>
                             {isDarkMode
                                 ? <> <div className="me-2">Light Mode</div> <MdLightMode /> </>
                                 : <> <div className="me-2">Dark Mode</div> <MdDarkMode /> </>}
