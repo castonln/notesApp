@@ -7,6 +7,7 @@ import stylesUtils from "../styles/utils.module.css";
 import AddEditNoteDialogue from "./AddEditNoteDialogue";
 import Note from './Note';
 import styles from "../styles/NotesPage.module.css";
+import AddNote from './AddNote';
 
 const NotesPageLoggedInView = () => {
     const [notes, setNotes] = useState<NoteModel[]>([]);
@@ -55,29 +56,25 @@ const NotesPageLoggedInView = () => {
                         onNoteClicked={setNoteToEdit}
                         onDeleteNoteClicked={deleteNote} />
                 </Col>
-
             ))}
+            <AddNote 
+            className={styles.note}
+            onAddNoteClicked={() => setShowAddNoteDialogue(true)} />
         </Row>
 
     return (
         <>
-            <Button
+            {/*<Button
                 className={`mb-4 ${stylesUtils.blockCenter} ${stylesUtils.flexCenter}`}
                 onClick={() => setShowAddNoteDialogue(true)}>
                 <FaPlus />
                 Add new note
-            </Button>
+            </Button>*/}
 
             {notesLoading && <Spinner animation='border' variant='primary' />}
             {showNotesLoadingError && <p>Something went wrong. Refresh page.</p>}
             {!notesLoading && !showNotesLoadingError &&
-                <>
-                    {
-                        notes.length > 0
-                            ? notesGrid
-                            : <p>You don't have any notes yet.</p>
-                    }
-                </>
+                notesGrid
             }
 
             {showAddNoteDialogue &&
