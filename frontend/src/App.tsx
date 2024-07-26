@@ -13,11 +13,15 @@ import styles from "./styles/App.module.css";
 
 function App() {
 
-  const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
-
   const [showSignUpModal, setShowSignUpModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
+  const [darkMode, setDarkMode] = useState(false);
+  useEffect(() => {
+    document.documentElement.setAttribute('data-bs-theme', darkMode ? 'dark' : 'light');
+  }, [darkMode])
+
+  const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
   useEffect(() => {
     async function fetchLoggedInUser() {
       try {
@@ -38,6 +42,8 @@ function App() {
           onLoginClicked={() => setShowLoginModal(true)}
           onSignUpClicked={() => setShowSignUpModal(true)}
           onLogoutSuccessful={() => setLoggedInUser(null)}
+          onThemeClick={() => setDarkMode(!darkMode)}
+          isDarkMode={darkMode}
         />
         <Container className={styles.pageContainer}>
           <Routes>
@@ -45,11 +51,11 @@ function App() {
               path="/"
               element={<NotesPage loggedInUser={loggedInUser} />}
             />
-            <Route 
+            <Route
               path="/privacy"
               element={<PrivacyPage />}
             />
-            <Route 
+            <Route
               path="/*"
               element={<NotFoundPage />}
             />
