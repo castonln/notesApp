@@ -1,3 +1,14 @@
 .navBar {
     background-color: lavender;
 }
+
+.logo {
+    width: 40px;
+    height: 40px;
+    margin-top: -2px;
+    margin-right: 5px;
+}
+
+.modeIcon {
+    margin-top: 1px;
+}

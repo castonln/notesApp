@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { User } from "../models/user";
 import NavBarLoggedOutView from "./NavBarLoggedOutView";
 import NavBarLoggedInView from "./NavBarLogggedInView";
+import styles from "../styles/NavBar.module.css";
 
 interface NavBarProps {
     loggedInUser: User | null,  // could be logged in, could not
@@ -22,9 +23,7 @@ const NavBar = ({ loggedInUser, onSignUpClicked, onLoginClicked, onLogoutSuccess
                     <img
                         alt=""
                         src={require("../logo.png")}
-                        width="40"
-                        height="40"
-                        className="d-inline-block align-middle me-2"
+                        className={styles.logo}
                     />{' '}
                     <h4>Sticky Notes</h4>
                 </Navbar.Brand>
@@ -33,8 +32,8 @@ const NavBar = ({ loggedInUser, onSignUpClicked, onLoginClicked, onLogoutSuccess
                     <Nav className="ms-auto d-flex align-items-center">
                         <Button className="d-flex align-items-center me-3" onClick={onThemeClick}>
                             {isDarkMode
-                                ? <> <div className="me-2">Light Mode</div> <MdLightMode /> </>
-                                : <> <div className="me-2">Dark Mode</div> <MdDarkMode /> </>}
+                                ? <> <div className="me-2">Light Mode</div> <MdLightMode className={styles.modeIcon} /> </>
+                                : <> <div className="me-2">Dark Mode</div> <MdDarkMode className={styles.modeIcon} /> </>}
                         </Button>
                         {loggedInUser
                             ? <NavBarLoggedInView user={loggedInUser} onLogoutSuccessful={onLogoutSuccessful} />
