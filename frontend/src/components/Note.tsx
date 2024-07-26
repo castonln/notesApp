@@ -42,7 +42,7 @@ const Note = ({ note, onNoteClicked, onDeleteNoteClicked, className }: NoteProps
                         e.stopPropagation();
                     }}/>
                 </Card.Title>
-                <Card.Text className={styles.cardText}>
+                <Card.Text className={styles.cardText} as={"div"}>      {/* Renders as a <p>, so <div> prevents errors */}
                     <ParseText 
                         text={text ? text : ""}
                     />
